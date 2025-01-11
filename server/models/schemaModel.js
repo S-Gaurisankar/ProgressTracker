@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
   expected_story_points: { type: Number, required: true },
   actual_story_points: { type: Number, required: true },
   progress_percentage: { type: Number, min: 0, max: 100, required: true },
-  status: { 
+  status: {
     type: String, 
     enum: ['Completed', 'Under Review', 'Pending', 'Yet to be Assigned'], 
     required: true 

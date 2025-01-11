@@ -6,7 +6,6 @@ const updateTaskByJiraTicket = async (req, res) => {
     if (!jira_ticket) {
       return res.status(400).send("Jira Ticket is required");
     }
-
     const updatedTask = await Task.findOneAndUpdate(
       { jira_ticket }, 
       req.body,

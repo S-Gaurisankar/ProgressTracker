@@ -9,7 +9,8 @@ const HomePage = () => {
     <>
       <h1 style={{ 
         textAlign: "center",
-        marginBottom: "1rem"
+        marginBottom: "1rem",
+        marginTop: "1rem"
       }}>Progress Tracker Tool</h1>
       <div className={styles.container}>
         <div className={styles.navbarContainer}>

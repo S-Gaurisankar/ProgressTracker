@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "../styles/card.module.css";
 
-const Card = ({ task }) => {
+const Card = ({ task, onDelete }) => {
   const getBgColor = () => {
-    switch(task.priority) {
+    switch (task.priority) {
       case "Critical":
         return "#ff03033b";
       case "High":
@@ -15,10 +15,10 @@ const Card = ({ task }) => {
       default:
         return "#fff";
     }
-  }
+  };
 
   const getBorderColor = () => {
-    switch(task.priority) {
+    switch (task.priority) {
       case "Critical":
         return "#ff0303";
       case "High":
@@ -30,10 +30,16 @@ const Card = ({ task }) => {
       default:
         return "#fff";
     }
-  }
+  };
 
   return (
-    <div className={styles.cardContainer} style={{ backgroundColor: getBgColor(), border: `2px solid ${getBorderColor()}` }}>
+    <div
+      className={styles.cardContainer}
+      style={{
+        backgroundColor: getBgColor(),
+        border: `2px solid ${getBorderColor()}`,
+      }}
+    >
       <div>
         <p>Task Name: {task.task}</p>
         <p>Priority: {task.priority}</p>
@@ -48,9 +54,19 @@ const Card = ({ task }) => {
         <p>Due Date: {task.due_date}</p>
       </div>
       <div className={styles.cardButtons}>
-        <button>Done</button>
-        <button>Edit</button>
-        <button>Delete</button>
+        <button
+          className={styles.doneButton}
+          onClick={() => onDelete(task.jira_ticket)}
+        >
+          Done
+        </button>
+        <button className={styles.editButton}>Edit</button>
+        <button
+          className={styles.deleteButton}
+          onClick={() => onDelete(task.jira_ticket)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

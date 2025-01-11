@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/displaySection.module.css";
-import data from "../utils/constants.js";
+// import data from "../utils/constants.js";
 import PieChart from "../components/pie.jsx";
 import LineChart from "../components/line.jsx";
 import TaskTable from "../components/table.jsx";
@@ -25,7 +25,7 @@ const DisplaySection = () => {
       {query ? (
         <div className={styles.queryContainer}>
           <div className={styles.tableContainer}>
-            <TaskTable data={data} />
+            {/* <TaskTable data={data} /> */}
           </div>
         </div>
       ) : (

@@ -1,11 +1,13 @@
 import React from "react";
-import Card from "../components/card";
+import Card from "../components/Card";
 import styles from "../styles/taskList.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
+// import Spinner from "../components/spinner.jsx";
 
 const TaskList = () => {
+  
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +27,24 @@ const TaskList = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  /****  Delete Task  ****/
+  const handleDelete = useCallback(async (jira_ticket) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/delete/${jira_ticket}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setTasks(prev => prev.filter(task => task.jira_ticket !== jira_ticket));
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  }, []);
+
+  if (loading) return <div className={styles.loaderScreen}>
+    Loading..
+    {/* <Spinner /> */}
+  </div>;
 
   return (
     <>
@@ -41,8 +60,9 @@ const TaskList = () => {
         <Navbar />
       </div>
       <div className={styles.taskListContainer}>
-        {tasks.map((task) => (
-          <Card key={task._id} task={task} />
+        {
+          tasks.map((task) => (
+          <Card key={task._id} task={task} onDelete={handleDelete} />
         ))}
       </div>
       <Link to="/addtask" className={styles.addButtonLink}>
