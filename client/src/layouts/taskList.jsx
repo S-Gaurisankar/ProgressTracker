@@ -16,6 +16,13 @@ const TaskList = () => {
         <Card />
         <Card />
         <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
       </div>
       <button className={styles.addButton}>+</button>
     </>
