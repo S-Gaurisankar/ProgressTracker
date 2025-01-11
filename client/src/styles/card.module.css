@@ -1,9 +1,9 @@
 .cardContainer {
-    background-color: #fff;
+    /* background-color: #ffbb0063; */
     padding: 1rem;
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.438);
     height: 250px;
+    width: 350px;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -41,16 +41,26 @@
     font-size: 15px;
 
     &:first-child {
-        background-color: #fffb00ac;
-        color: #000;
+        background-color: #02ad4fb0;
+        color: #fff;
 
         &:hover {
             transition: all 0.3s ease-in-out;
-            background-color: #fffb00;
+            background-color: #02ad4f;
         }
     }
 
     &:nth-child(2) {
+        background-color: #fffb00d3;
+        color: #000;
+
+        &:hover {
+            transition: all 0.3s ease-in-out;
+            background-color: #ffd000;
+        }
+    }
+
+    &:nth-child(3) {
         background-color: #ff0000a2;
         color: #fff;
 

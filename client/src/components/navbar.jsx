@@ -9,6 +9,9 @@ const Navbar = () => {
         <span>&#128270;</span>
         <input type="text" placeholder="Task or Jira Id" />
       </form>
+      <Link to="/" className={styles.taskListLink}>
+        <p>Home</p>
+      </Link>
       <Link to="/tasklist" className={styles.taskListLink}>
         <p>TaskList</p>
       </Link>

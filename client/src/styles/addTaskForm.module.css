@@ -1,0 +1,45 @@
+.addTaskFormContainer {
+    padding: 2rem;
+
+    h1 {
+        margin-bottom: 10px;
+    }
+}
+
+.addTaskForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 1rem;
+}
+
+.formInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.formInput input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formInput label {
+    margin-bottom: 5px;
+}
+.addTaskButton {
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
