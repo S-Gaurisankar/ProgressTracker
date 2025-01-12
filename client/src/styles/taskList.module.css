@@ -1,3 +1,9 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
 .taskListContainer {
     padding: 1rem;
     display: flex;
@@ -8,6 +14,9 @@
     align-items: center;
 }
 .navbarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 90%;
     margin-bottom: 10px;
 }
@@ -38,4 +47,26 @@
 .addButtonLink {
     text-decoration: none;
     color: #fff;
+}
+
+/* Filter Container */
+.filterContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.priorityfilter , .typefilter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: "Poppins", sans-serif;
+
+    select {
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
 }
