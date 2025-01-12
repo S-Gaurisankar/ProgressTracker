@@ -56,3 +56,17 @@
     justify-content: center;
     gap: 1rem;
 }
+
+.priorityfilter , .typefilter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: "Poppins", sans-serif;
+
+    select {
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+}

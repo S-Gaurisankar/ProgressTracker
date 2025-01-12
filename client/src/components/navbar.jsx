@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/query?${searchQuery}`);
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/query?jira_ticket=${searchQuery}`);
     const data = await response.json();
     navigate('/searchtask', {
       state: {
@@ -28,7 +28,7 @@ const Navbar = () => {
       
       <form action="" className={styles.searchForm} onSubmit={handleSearch}>
         <span>&#128270;</span>
-        <input type="text" placeholder="Task or Jira Id"
+        <input type="text" placeholder="Jira Id"
         value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyPress}/>
       </form>
 
