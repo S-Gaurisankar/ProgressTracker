@@ -1,97 +1,109 @@
-import React, { useState, useCallback } from "react";
-import styles from "../styles/addTaskForm.module.css";
+import React, { useState } from "react";
+import styles from "../styles/TaskForm.module.css";
 import { useNavigate } from "react-router-dom";
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ isEditMode = false, data = null }) => {
   const navigate = useNavigate();
 
-  const [taskname, setTaskname] = useState("");
-  const [priority, setPriority] = useState("");
-  const [type, setType] = useState("");
-  const [assigned_sp, setAssigned_sp] = useState("");
-  const [actual_sp, setActual_sp] = useState("");
-  const [expected_story_point, setExpected_story_point] = useState("");
-  const [actual_story_point, setActual_story_point] = useState("");
-  const [progress_percentage, setProgress_percentage] = useState("");
-  const [status, setStatus] = useState("");
-  const [jira_ticket, setJira_ticket] = useState("");
-  const [due_date, setDue_date] = useState("");
-  const [department, setDepartment] = useState("");
-  const [comment, setComment] = useState("");
+  const [taskname, setTaskname] = useState(data?.task || "");
+  const [priority, setPriority] = useState(data?.priority || "");
+  const [type, setType] = useState(data?.type || "");
+  const [assigned_sp, setAssigned_sp] = useState(data?.assigned_sp || "");
+  const [actual_sp, setActual_sp] = useState(data?.actual_sp || "");
+  const [expected_story_point, setExpected_story_point] = useState(data?.expected_story_points || "");
+  const [actual_story_point, setActual_story_point] = useState(data?.actual_story_points || "");
+  const [progress_percentage, setProgress_percentage] = useState(data?.progress_percentage || "");
+  const [status, setStatus] = useState(data?.status || "");
+  const [jira_ticket, setJira_ticket] = useState(data?.jira_ticket || "");
+  const [due_date, setDue_date] = useState(data?.due_date || "");
+  const [department, setDepartment] = useState(data?.department || "");
+  const [comment, setComment] = useState(data?.comment || "");
 
-  const createAddTask = async (task) => {
-    console.log(task);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/post`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: task,
-      });
-      if(response.ok) {
-        console.log("Task added successfully");
-        navigate('/tasklist');
-      }
-    } catch (error) {
-      console.error('Error adding task:', error);
-    }
-  };
-
-  const handleAddTask = (e) => {
-    console.log("tskname:", taskname);
-    console.log("priority:", priority);
-    console.log("type:", type);
-    console.log("assigned_sp:", assigned_sp);
-    console.log("actual_sp:", actual_sp);
-    console.log("expected_story_point:", expected_story_point);
-    console.log("actual_story_point:", actual_story_point);
-    console.log("progress_percentage:", progress_percentage);
-    console.log("status:", status);
-    console.log("jira_ticket:", jira_ticket);
-    console.log("due_date:", due_date);
-    console.log("department:", department);
-    console.log("comment:", comment);
+  const handleSubmission = async (e) => {
     e.preventDefault();
-    const newTask = {
-      task: taskname,
-      priority: priority,
-      type: type,
-      assigned_sp: assigned_sp,
-      actual_sp: actual_sp,
-      expected_story_point: expected_story_point,
-      actual_story_point: actual_story_point,
-      progress_percentage: progress_percentage,
-      status: status,
-      jira_ticket: jira_ticket,
-      due_date: due_date,
-      department: department,
-      comment: comment,
-    }
+
+    // create a new task object
+    const newTask = {};
+    if (taskname) newTask.task = taskname;
+    if (priority) newTask.priority = priority;
+    if (type) newTask.type = type;
+    if (assigned_sp) newTask.assigned_sp = assigned_sp;
+    if (actual_sp) newTask.actual_sp = actual_sp;
+    if (expected_story_point)
+      newTask.expected_story_points = expected_story_point;
+    if (actual_story_point) newTask.actual_story_points = actual_story_point;
+    if (progress_percentage) newTask.progress_percentage = progress_percentage;
+    if (status) newTask.status = status;
+    if (jira_ticket) newTask.jira_ticket = jira_ticket;
+    if (due_date) newTask.due_date = due_date;
+    if (department) newTask.department = department;
+    if (comment) newTask.comment = comment;
     console.log(newTask);
 
-    setTaskname("");
-    setPriority("");
-    setType("");
-    setAssigned_sp("");
-    setActual_sp("");
-    setExpected_story_point("");
-    setActual_story_point("");
-    setProgress_percentage("");
-    setStatus("");
-    setJira_ticket("");
-    setDue_date("");
-    setDepartment("");
-    setComment("");
-    
-    createAddTask(newTask);
-
+    try {
+      if (!isEditMode) {
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/post`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTask),
+          }
+        );
+        if (response.ok) {
+          console.log("Task added successfully");
+        } else {
+          console.error("Failed to add task");
+        }
+      } else {
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/update/${jira_ticket}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTask),
+          }
+        );
+        if (response.ok) {
+          console.log("Task edited successfully");
+        } else {
+          console.error("Failed to add task");
+        }
+      }
+    } catch (error) {
+      console.error("Error adding task:", error);
+    } finally {
+      setTaskname("");
+      setPriority("");
+      setType("");
+      setAssigned_sp("");
+      setActual_sp("");
+      setExpected_story_point("");
+      setActual_story_point("");
+      setProgress_percentage("");
+      setStatus("");
+      setJira_ticket("");
+      setDue_date("");
+      setDepartment("");
+      setComment("");
+      navigate("/tasklist");
+      navigate("/tasklist");
+    }
   };
 
   return (
     <div className={styles.addTaskFormContainer}>
-      <h1>Add a New Task</h1>
-      <form action="" method="POST" className={styles.addTaskForm} onSubmit={handleAddTask}>
+      <h1>{isEditMode ? "Edit Task" : "Add a New Task"}</h1>
+      <form
+        action=""
+        method="POST"
+        className={styles.addTaskForm}
+        onSubmit={handleSubmission}
+      >
         <div className={styles.formInput}>
           <label htmlFor="task">Enter Task</label>
           <input
@@ -182,16 +194,20 @@ const AddTaskForm = () => {
             onChange={(e) => setStatus(e.target.value)}
           />
         </div>
-        <div className={styles.formInput}>
-          <label htmlFor="jira_ticket">Jira Ticket</label>
-          <input
-            type="text"
-            id="jira_ticket"
-            name="jira_ticket"
-            value={jira_ticket}
-            onChange={(e) => setJira_ticket(e.target.value)}
-          />
-        </div>
+
+        {!isEditMode && (
+          <div className={styles.formInput}>
+            <label htmlFor="jira_ticket">Jira Ticket</label>
+            <input
+              type="text"
+              id="jira_ticket"
+              name="jira_ticket"
+              value={jira_ticket}
+              onChange={(e) => setJira_ticket(e.target.value)}
+            />
+          </div>
+        )}
+
         <div className={styles.formInput}>
           <label htmlFor="due_date">Due Date</label>
           <input
@@ -222,11 +238,8 @@ const AddTaskForm = () => {
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
-        <button
-          type="submit"
-          className={styles.addTaskButton}
-        >
-          Add Task
+        <button type="submit" className={styles.addTaskButton}>
+          {isEditMode ? "Save Changes" : "Add Task"}
         </button>
       </form>
     </div>

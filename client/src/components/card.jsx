@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "../styles/card.module.css";
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ task, onDelete }) => {
+const Card = ({ task, onDelete = () => {} }) => {
+  const navigate = useNavigate();
   const getBgColor = () => {
     switch (task.priority) {
       case "Critical":
@@ -32,6 +34,15 @@ const Card = ({ task, onDelete }) => {
     }
   };
 
+  const handleEdit = () => {
+    navigate(`/editTask`,{
+      state: {
+        taskData: task
+      }
+    });
+  };
+
+
   return (
     <div
       className={styles.cardContainer}
@@ -56,11 +67,12 @@ const Card = ({ task, onDelete }) => {
       <div className={styles.cardButtons}>
         <button
           className={styles.doneButton}
-          onClick={() => onDelete(task.jira_ticket)}
+          onClick={() => onDelete?.(task.jira_ticket)}
         >
           Done
         </button>
-        <button className={styles.editButton}>Edit</button>
+
+        <button className={styles.editButton} onClick={handleEdit}>Edit</button>
         <button
           className={styles.deleteButton}
           onClick={() => onDelete(task.jira_ticket)}

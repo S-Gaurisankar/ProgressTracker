@@ -1,10 +1,9 @@
 import React from "react";
-import Card from "../components/Card";
+import Card from "../components/card";
 import styles from "../styles/taskList.module.css";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
-// import Spinner from "../components/spinner.jsx";
 
 const TaskList = () => {
   
@@ -41,6 +40,7 @@ const TaskList = () => {
     }
   }, []);
 
+  /*** Loader screen ****/
   if (loading) return <div className={styles.loaderScreen}>
     Loading..
     {/* <Spinner /> */}

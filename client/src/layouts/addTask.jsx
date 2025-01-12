@@ -1,5 +1,5 @@
 import React from "react";
-import AddTaskForm from "../components/addTaskForm";
+import AddTaskForm from "../components/TaskForm";
 import styles from "../styles/addTask.module.css";
 
 const AddTask = () => {
