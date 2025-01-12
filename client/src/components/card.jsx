@@ -51,19 +51,72 @@ const Card = ({ task, onDelete = () => {} }) => {
         border: `2px solid ${getBorderColor()}`,
       }}
     >
-      <div>
-        <p>Task Name: {task.task}</p>
-        <p>Priority: {task.priority}</p>
-        <p>Type: {task.type}</p>
-        <p>Assigned SP: {task.assigned_sp}</p>
-        <p>Actual SP: {task.actual_sp}</p>
-        <p>Expected Story Points: {task.expected_story_points}</p>
-        <p>Actual Story Points: {task.actual_story_points}</p>
-        <p>Progress Percentage: {task.progress_percentage}</p>
-        <p>Status: {task.status}</p>
-        <p>Jira Ticket: {task.jira_ticket}</p>
-        <p>Due Date: {task.due_date}</p>
+      <div className={styles.cardContent}>
+        <div className={styles.cardHeader}>
+          <h3 className={styles.taskName}>{task.task}</h3>
+          <span className={styles.jiraTicket}>{task.jira_ticket}</span>
+        </div>
+
+        <div className={styles.cardDetails}>
+          <div className={styles.detailRow}>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Priority:</span>
+              <span className={styles.value}>{task.priority}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Type:</span>
+              <span className={styles.value}>{task.type}</span>
+            </div>
+          </div>
+
+          <div className={styles.detailRow}>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Assigned SP:</span>
+              <span className={styles.value}>{task.assigned_sp}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Actual SP:</span>
+              <span className={styles.value}>{task.actual_sp}</span>
+            </div>
+          </div>
+
+          <div className={styles.detailRow}>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Expected Points:</span>
+              <span className={styles.value}>{task.expected_story_points}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Actual Points:</span>
+              <span className={styles.value}>{task.actual_story_points}</span>
+            </div>
+          </div>
+
+          <div className={styles.progressSection}>
+            <div className={styles.progressInfo}>
+              <span className={styles.label}>Progress:</span>
+              <span className={styles.value}>{task.progress_percentage}%</span>
+            </div>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{width: `${task.progress_percentage}%`}}
+              ></div>
+            </div>
+          </div>
+
+          <div className={styles.detailRow}>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Status:</span>
+              <span className={styles.value}>{task.status}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <span className={styles.label}>Due:</span>
+              <span className={styles.value}>{task.due_date}</span>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div className={styles.cardButtons}>
         <button
           className={styles.doneButton}
@@ -71,8 +124,9 @@ const Card = ({ task, onDelete = () => {} }) => {
         >
           Done
         </button>
-
-        <button className={styles.editButton} onClick={handleEdit}>Edit</button>
+        <button className={styles.editButton} onClick={handleEdit}>
+          Edit
+        </button>
         <button
           className={styles.deleteButton}
           onClick={() => onDelete(task.jira_ticket)}

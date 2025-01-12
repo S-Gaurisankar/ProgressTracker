@@ -25,20 +25,21 @@ const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      
+      <div className={styles.navLinks}>
+        <Link to="/" className={styles.taskListLink}>
+          <p>Home</p>
+        </Link>
+        
+        <Link to="/tasklist" className={styles.taskListLink}>
+          <p>TaskList</p>
+        </Link>
+      </div>
+
       <form action="" className={styles.searchForm} onSubmit={handleSearch}>
         <span>&#128270;</span>
         <input type="text" placeholder="Task or Jira Id"
         value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyPress}/>
       </form>
-
-      <Link to="/" className={styles.taskListLink}>
-        <p>Home</p>
-      </Link>
-      
-      <Link to="/tasklist" className={styles.taskListLink}>
-        <p>TaskList</p>
-      </Link>
     </div>
   );
 };

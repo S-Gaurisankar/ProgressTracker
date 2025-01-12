@@ -8,15 +8,74 @@ import { useQuery } from "../context/QueryContext.jsx";
 
 const DisplaySection = () => {
   const { query } = useQuery();
-  console.log(query);
-  const firstChartData = {
-    labels: ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"],
-    values: [150, 100, 80, 95, 120],
-  };
+  const [priorityCounts, setPriorityCounts] = React.useState({
+    critical: 0,
+    high: 0,
+    low: 0,
+    moderate: 0
+  });
 
+  const [taskTypeCounts, setTaskTypeCounts] = React.useState({
+    emergency: 0,
+    planned: 0,
+    incidental: 0,
+  });
+
+  React.useEffect(() => {
+    const updateTaskCount = async () => {
+      try {
+        const response = await fetch('https://progresstracker-api.onrender.com/api/tasks');
+        const data = await response.json();
+        
+        const counts = {
+          critical: 0,
+          high: 0,
+          low: 0,
+          moderate: 0
+        };
+
+        const taskTypeCounts = {
+          emergency: 0,
+          planned: 0,
+          incidental: 0,
+        };
+
+        data.forEach(task => {
+          if (task.priority === 'Critical') counts.critical++;
+          if (task.priority === 'High') counts.high++;
+          if (task.priority === 'Low') counts.low++;
+          if (task.priority === 'Moderate') counts.moderate++;
+        });
+
+        data.forEach(task => {
+          if (task.type === 'Emergency') taskTypeCounts.emergency++;
+          if (task.type === 'Planned') taskTypeCounts.planned++;
+          if (task.type === 'Incidental') taskTypeCounts.incidental++;
+        });
+
+        setPriorityCounts(counts);
+        setTaskTypeCounts(taskTypeCounts);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+
+    updateTaskCount();
+  }, []); // Empty dependency array means this runs once on mount
+
+  const firstChartData = {
+    labels: ['Critical', 'High', 'Low', 'Moderate'],
+    values: [
+      priorityCounts.critical,
+      priorityCounts.high,
+      priorityCounts.low,
+      priorityCounts.moderate
+    ],
+  };
+  
   const secondChartData = {
-    labels: ["PM2.5", "PM10", "NO2", "SO2", "O3"],
-    values: [65, 45, 30, 25, 35],
+    labels: ["Emergency", "Planned", "Incidental"],
+    values: [taskTypeCounts.emergency, taskTypeCounts.planned, taskTypeCounts.incidental],
   };
 
   return (
@@ -33,8 +92,8 @@ const DisplaySection = () => {
         {/* Overall status */}
           <div className={styles.container}>
             <div className={styles.chartContainer}>
-              <PieChart data={firstChartData} />
-              <PieChart data={secondChartData} />
+              <PieChart data={firstChartData} title="Tasks by Priority" />
+              <PieChart data={secondChartData} title="Tasks by Type" />
             </div>
             <div className={styles.graphContainer}>
               <LineChart data={firstChartData} />

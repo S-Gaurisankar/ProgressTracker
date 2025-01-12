@@ -14,7 +14,7 @@ ChartJS.register(
   Legend
 );
 
-const PieChart = ({data}) => {
+const PieChart = ({data, title = 'Priority of Tasks'}) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -30,14 +30,14 @@ const PieChart = ({data}) => {
       {
         data: data.values,
         backgroundColor: [
-          'rgb(255, 99, 132)',
+          'rgb(220, 20, 60)',
           'rgb(255, 159, 64)',
           'rgb(255, 205, 86)',
           'rgb(75, 192, 192)',
           'rgb(54, 162, 235)',
         ],
         borderColor: [
-          'rgb(255, 99, 132)',
+          'rgb(220, 20, 60)',
           'rgb(255, 159, 64)',
           'rgb(255, 205, 86)',
           'rgb(75, 192, 192)',
@@ -59,15 +59,15 @@ const PieChart = ({data}) => {
           boxWidth: 20,
           padding: 20,
           font: {
-            size: 14
+            size: 16
           }
         }
       },
       title: {
         display: true,
-        text: 'Air Quality Index by State',
+        text: title,
         font: {
-          size: 16,
+          size: 20,
           weight: 'bold'
         }
       },
@@ -76,8 +76,11 @@ const PieChart = ({data}) => {
           label: (context) => {
             const label = context.label || '';
             const value = context.raw || '';
-            return `${label}: AQI ${value}`;
+            return `${label}: Count ${value}`;
           }
+        },
+        bodyFont: {
+          size: 16
         }
       }
     },
