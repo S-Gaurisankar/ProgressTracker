@@ -80,29 +80,25 @@ const DisplaySection = () => {
 
   return (
     <>
-    {/* Query section */}
-      {query ? (
+      <div className={styles.container}>
+        <div className={styles.chartContainer}>
+          <PieChart data={firstChartData} title="Tasks by Priority" />
+          <PieChart data={secondChartData} title="Tasks by Type" />
+        </div>
+        <div className={styles.graphContainer}>
+          <LineChart data={firstChartData} />
+        </div>
+      </div>
+      
+      {query && (
         <div className={styles.queryContainer}>
           <div className={styles.tableContainer}>
             {/* <TaskTable data={data} /> */}
           </div>
         </div>
-      ) : (
-        <>
-        {/* Overall status */}
-          <div className={styles.container}>
-            <div className={styles.chartContainer}>
-              <PieChart data={firstChartData} title="Tasks by Priority" />
-              <PieChart data={secondChartData} title="Tasks by Type" />
-            </div>
-            <div className={styles.graphContainer}>
-              <LineChart data={firstChartData} />
-            </div>
-          </div>
-        </>
       )}
     </>
   );
-};
+};  
 
 export default DisplaySection;
