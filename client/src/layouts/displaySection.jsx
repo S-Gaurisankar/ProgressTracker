@@ -21,6 +21,13 @@ const DisplaySection = () => {
     incidental: 0,
   });
 
+  const [taskStatusCounts, setTaskStatusCounts] = React.useState({
+    completed: 0,
+    yetToBeAssigned: 0,
+    pending: 0,
+    underReview: 0,
+  });
+
   React.useEffect(() => {
     const updateTaskCount = async () => {
       try {
@@ -53,8 +60,16 @@ const DisplaySection = () => {
           if (task.type === 'Incidental') taskTypeCounts.incidental++;
         });
 
+        data.forEach(task => {
+          if (task.status === 'Completed') taskStatusCounts.completed++;
+          if (task.status === 'Yet to be assigned') taskStatusCounts.yetToBeAssigned++;
+          if (task.status === 'Pending') taskStatusCounts.pending++;
+          if (task.status === 'Under review') taskStatusCounts.underReview++;
+        });
+
         setPriorityCounts(counts);
         setTaskTypeCounts(taskTypeCounts);
+        setTaskStatusCounts(taskStatusCounts);
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
@@ -78,6 +93,11 @@ const DisplaySection = () => {
     values: [taskTypeCounts.emergency, taskTypeCounts.planned, taskTypeCounts.incidental],
   };
 
+  const lineChartData = {
+    labels: ["Completed", "Yet to be assigned", "Pending", "Under review"],
+    values: [taskStatusCounts.completed, taskStatusCounts.yetToBeAssigned, taskStatusCounts.pending, taskStatusCounts.underReview],
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -86,7 +106,7 @@ const DisplaySection = () => {
           <PieChart data={secondChartData} title="Tasks by Type" />
         </div>
         <div className={styles.graphContainer}>
-          <LineChart data={firstChartData} />
+          <LineChart data={lineChartData} />
         </div>
       </div>
       

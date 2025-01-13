@@ -26,7 +26,7 @@ const LineChart = ({ data }) => {
     labels: data.labels,
     datasets: [
       {
-        label: 'Sports Data',
+        label: 'Task Completion Trends',
         data: data.values,
         borderColor: 'rgb(54, 162, 235)',
         backgroundColor: 'rgba(54, 162, 235, 0.5)',
@@ -50,7 +50,7 @@ const LineChart = ({ data }) => {
       },
       title: {
         display: true,
-        text: 'Popularity of Sports MonthWise',
+        text: '',
       },
     },
     scales: {
