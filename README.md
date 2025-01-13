@@ -1,10 +1,116 @@
-# TaskApp System Backend
+# ProgressTracker
+
+
+ProgressTracker is a comprehensive task management web application that combines powerful task tracking capabilities with AI-driven insights. The application features an intuitive task management interface, data visualization dashboard, and an intelligent chatbot for data analysis.
+
+
+## Key Features
+
+### Task Management
+- Create, edit, and delete tasks
+
+- Card-based task visualization
+
+- Detailed task tracking with multiple parameters
+
+- AI-driven insights and data analysis
+
+- Search and filter tasks
+
+- Priority and type-based categorization
+
+- Dashboard for task  metrics
+
+
+###  Dashboard
+
+- Interactive pie charts showing task distribution by:
+
+  - Priority levels
+
+  - Task types
+
+
+- Line chart visualization for task completion trends
+
+- Real-time progress tracking
+
+
+## **AI-Integration**
+- Intelligent chatbot interface
+
+- Natural language query processing
+
+- Data-driven task analysis
+
+- Trend identification and recommendations
+
+
+### Model Configuration
+
+The application's AI capabilities are powered by a custom-tuned model in Vertex AI Studio. Here's how the model was configured:
+
+- Used Gemini 1.5 Pro, optimized for task management contexts
+
+- Included various query patterns and analytical requests
+
+- Incorporated domain-specific terminology
+
+### Model Tuning
+
+- Fine-tuned using Vertex AI's hyperparameter optimization
+
+- Optimized for:
+Task analysis accuracy
+Natural language understanding
+Context-aware responses
+Data interpretation capabilities
+
+### Integration Parameters
+- Response temperature: 0.7 (balanced between creativity and accuracy)
+
+- Context window: 2048 tokens
+
+- Custom stop sequences for structured outputs
+
+
+## Frontend Architecture
+
+- React.js for UI components
+
+- Chart.js for data visualization
+
+- Material-UI for component styling
+
+
+## Installation and Setup
+
+### Frontend Setup
+
+1. Clone the repository
+
+2. Install dependencies:
+
+    ```bash
+   cd frontend
+   npm install
+   ```
+
+3. Run the development server:
+
+    ```bash
+    npm run dev
+    ``` 
+
+
+
+## **TaskApp System Backend**
 
 The backend provides a RESTful API for managing tasks and includes features such as database interaction, logging, and modular route handling.
 
 ---
 
-## **Project Features**
+## Project Features
 
 - **API Endpoints**:
   - Fetch all tasks
@@ -108,3 +214,4 @@ Tasks include the following fields:
 - `due_date`: Date
 - `department`: String
 - `comment`: String
+
